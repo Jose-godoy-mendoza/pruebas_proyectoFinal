@@ -5,6 +5,7 @@
  */
 package Modelo;
 
+import java.awt.HeadlessException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -60,6 +61,29 @@ public class Compras {
     public void setFecha_orden(String fecha_orden) {
         this.fecha_orden = fecha_orden;
     }
+    
+    public int eliminar()
+    {
+        int devolver=0;
+        try
+        {
+            PreparedStatement parametro;
+            String codigo_sql="delete from db_punto_venta.compras where idcompra=?";
+            cn = new Conexion();
+            cn.abrir_conexion();
+            parametro=(PreparedStatement) cn.conexionBD.prepareStatement(codigo_sql);
+            parametro.setInt(1, getIdcompra());
+            
+            devolver=parametro.executeUpdate();
+            cn.cerrar_conexion();
+        }catch(HeadlessException | SQLException ex)
+        {
+            System.out.println("error........"+ex.getMessage());
+        }
+        
+        return devolver;
+    }
+    
     
     public int modificar()
     {

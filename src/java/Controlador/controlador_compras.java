@@ -64,19 +64,48 @@ public class controlador_compras extends HttpServlet {
             }
             if("modificar_compra".equals(request.getParameter("btn_modificar_compra")))
             {
-                if(compras_d.modificar()>0)
+                if(compras_d.modificando_cantidades()>0)
                 {
-                    compra.modificar();
-                    response.sendRedirect("index.jsp");
-                }else
+
+                    if(compras_d.modificar()>0)
+                    {
+                        compra.modificar();
+                        response.sendRedirect("index.jsp");
+                    }else
+                    {
+                        out.print("<p>ERROR AL MODIFICAR COMPRA_DETALLE </p>");
+                    }
+                }
+                else
                 {
-                    out.print("<p>ERROR AL MODIFICAR COMPRA_DETALLE </p>");
+                    String imagen ="https://c.tenor.com/2CoAwNOjrDYAAAAC/aqua-konosuba.gif";
+                        out.println("<p>Error, hubo un error al modificar la cantidad</p>");
+                        out.println("<img src="+imagen);
                 }
             }
-            else
+            if("eliminar_compra".equals(request.getParameter("btn_eliminar_compra")))
             {
-                out.print("<p>ERROR AL NO ENCONTRADO </p>");
+                if(compras_d.modificacion_eliminar()>0)
+                {
+
+                    if(compras_d.eliminar()>0)
+                    {
+                        compra.eliminar();
+                        response.sendRedirect("index.jsp");
+                    }else
+                    {
+                        out.print("<p>ERROR AL ELIMINAR COMPRA_DETALLE </p>");
+                    }
+                }
+                else
+                {
+                    String imagen ="https://c.tenor.com/2CoAwNOjrDYAAAAC/aqua-konosuba.gif";
+                        out.println("<p>Error, hubo un error al modificar la cantidad</p>");
+                        out.println("<img src="+imagen);
+                }
             }
+            
+            
             out.println("</body>");
             out.println("</html>");
         }
